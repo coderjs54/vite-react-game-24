@@ -1,0 +1,13 @@
+{
+  "name": "24-Point Game",
+  "edition": "React edition",
+  "calculate": "Calculate",
+  "restart": "New Game",
+  "result": {
+    "correct": "Congratulations, it is correct",
+    "wrong": "Sorry, it is wrong",
+    "error": "Expression error, please check"
+  },
+  "lang": "English",
+  "langTip": "Click to toggle language"
+}

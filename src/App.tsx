@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import './App.scss'
 
 type NumObj = {
@@ -8,8 +9,11 @@ type NumObj = {
 
 const Backspace = 'Backspace'
 const Clear = 'Clear'
+const Lang = 'lang'
 
 function App() {
+  const { t, i18n } = useTranslation()
+
   const [chosenNums, setChosenNums] = useState<Array<number | string>>([])
   const [expressionArr, setExpressionArr] = useState<Array<string | number>>([])
   const [flag, setFlag] = useState<string | number>('')
@@ -65,6 +69,9 @@ function App() {
 
   useEffect(() => {
     startNewGame()
+    // 查看本地存储的lang
+    const lang = localStorage.getItem(Lang)
+    lang && i18n.changeLanguage(lang)
   }, [])
 
   const operators = [
@@ -147,9 +154,23 @@ function App() {
       setFlag(-1)
     }
   }
+
+  // 切换语言
+  const toggleLang = () => {
+    const lang = i18n.language
+    const newLang = lang === 'en' ? 'zh' : 'en'
+    i18n.changeLanguage(newLang)
+    // 保存到本地
+    localStorage.setItem(Lang, newLang)
+  }
   return (
     <>
-      <div className="game-title">24点小游戏<sup>React版</sup></div>
+      <div className="game-title">
+        <div className="name">{t('name')}<sup>{t('edition')}</sup></div>
+        <div className="toggle" title={t('langTip')}>
+          <button onClick={toggleLang}>{t(Lang)}</button>
+        </div>
+      </div>
       <div className="chosen-box">
         {
           chosenNums.map((chosenNum, i) => (
@@ -192,18 +213,18 @@ function App() {
       </div>
       {
         flag === -1 ? (
-          <div className="result-box error">表达式错误</div>
+          <div className="result-box error">{t('result.error')}</div>
         ) : flag === 1 ? (
-          <div className="result-box success">计算正确</div>
+          <div className="result-box correct">{t('result.correct')}</div>
         ) : flag === 0 ? (
-          <div className="result-box wrong">计算错误</div>
+          <div className="result-box wrong">{t('result.wrong')}</div>
         ) : null
       }
       <div className="calculate-btn">
-        <button onClick={calculate}>计算</button>
+        <button onClick={calculate}>{t('calculate')}</button>
       </div>
       <div className="new-game-btn">
-        <button onClick={startNewGame}>新游戏</button>
+        <button onClick={startNewGame}>{t('restart')}</button>
       </div>
     </>
   )

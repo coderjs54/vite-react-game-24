@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) navigator.serviceWorker.register('/game24/dev-sw.js?dev-sw', { scope: '/game24/', type: 'classic' })

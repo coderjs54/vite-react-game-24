@@ -1,0 +1,13 @@
+{
+  "name": "24点小游戏",
+  "edition": "React版",
+  "calculate": "计算",
+  "restart": "新游戏",
+  "result": {
+    "correct": "恭喜你，结果正确",
+    "wrong": "很遗憾，计算错误",
+    "error": "表达式错误，请检查"
+  },
+  "lang": "中文",
+  "langTip": "点击切换语言"
+}
