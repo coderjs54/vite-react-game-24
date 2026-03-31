@@ -34,5 +34,5 @@ export default defineConfig({
   server: {
     port: 5174,
   },
-  base: '/game24/',
+  base: '/vite-react-game-24/',
 })
