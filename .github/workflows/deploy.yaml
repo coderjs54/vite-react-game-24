@@ -1,5 +1,9 @@
 name: Deploy App to GitHub Pages
 
+# 全局设置（对所有 job 生效）
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 on:
   push:
     branches: ['main']  # 当推送到 main 分支时触发
