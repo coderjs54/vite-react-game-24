@@ -1,5 +1,6 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, createRef } from 'react'
 import { useTranslation } from 'react-i18next'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import './App.scss'
 
 type NumObj = {
@@ -15,6 +16,7 @@ function App() {
   const { t, i18n } = useTranslation()
 
   const [chosenNums, setChosenNums] = useState<Array<number | string>>([])
+  const [chosenNumsObj, setChosenNumsObj] = useState<Array<Record<string, any>>>([])
   const [expressionArr, setExpressionArr] = useState<Array<string | number>>([])
   const [flag, setFlag] = useState<string | number>('')
   
@@ -43,6 +45,8 @@ function App() {
     setChosenNums(randoms)
 
     setCurrentNums(randoms)
+
+    return randoms
   }, [])
 
   // 根据当前的chosenNums计算nums的值
@@ -62,7 +66,12 @@ function App() {
 
   // 新游戏
   const startNewGame = () => {
-    genRandomNums()
+    const randoms = genRandomNums()
+    const randomsObj = randoms.map(random => ({
+      random,
+      nodeRef: createRef()
+    }))
+    setChosenNumsObj(randomsObj)
     setExpressionArr([])
     setFlag('')
   }
@@ -171,13 +180,26 @@ function App() {
           <button onClick={toggleLang}>{t(Lang)}</button>
         </div>
       </div>
-      <div className="chosen-box">
+      {/* <div className="chosen-box"> */}
+      <TransitionGroup className="chosen-box">
         {
-          chosenNums.map((chosenNum, i) => (
-            <div className="chosen" key={i + '-' + chosenNum}>{chosenNum}</div>
-          ))
+          chosenNumsObj.map((obj, i) => {
+            const { random: chosenNum, nodeRef } = obj
+            return (
+              <CSSTransition
+                key={i + '-' + chosenNum}
+                nodeRef={nodeRef}
+                exit={false}
+                timeout={{ enter: 1500, exit: 0 }}
+                classNames="list"
+              >
+                <div className="chosen" ref={nodeRef} key={i + '-' + chosenNum}>{chosenNum}</div>
+              </CSSTransition>
+            )
+          })
         }
-      </div>
+      </TransitionGroup>
+      {/* </div> */}
       <div className="expression-box">
         {
           expressionArr.map((expression, i) => (

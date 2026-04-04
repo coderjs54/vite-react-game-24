@@ -10,11 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/react-transition-group": "^4.4.12",
     "@vite-pwa/assets-generator": "^1.0.2",
     "i18next": "^26.0.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-i18next": "^17.0.1",
+    "react-transition-group": "^4.4.5",
     "vite-plugin-pwa": "^1.2.0"
   },
   "devDependencies": {

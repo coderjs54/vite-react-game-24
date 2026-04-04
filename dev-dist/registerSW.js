@@ -1,1 +1,1 @@
-if('serviceWorker' in navigator) navigator.serviceWorker.register('/game24/dev-sw.js?dev-sw', { scope: '/game24/', type: 'classic' })
+if('serviceWorker' in navigator) navigator.serviceWorker.register('/vite-react-game-24/dev-sw.js?dev-sw', { scope: '/vite-react-game-24/', type: 'classic' })
