@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, createRef } from 'react'
 import { useTranslation } from 'react-i18next'
+import { round } from 'mathjs'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import './App.scss'
 
@@ -150,11 +151,10 @@ function App() {
       })
     })
     if (!legal) return
-
     const expressionStr = expressionArr.join('')
     try {
       const result = new Function('return ' + expressionStr)()
-      if (result === 24) {
+      if (round(result, 1) === 24) {
         setFlag(1)
       } else {
         setFlag(0)
