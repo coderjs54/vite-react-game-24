@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { round } from 'mathjs'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import './App.scss'
+import { isLegalNums } from './utils'
 
 type NumObj = {
   times: number // 该数字可以使用的次数
@@ -68,6 +69,11 @@ function App() {
   // 新游戏
   const startNewGame = () => {
     const randoms = genRandomNums()
+    // 数字无法计算得到24点 重新生成随机数字
+    if (!isLegalNums(randoms)) {
+      return startNewGame()
+    }
+    
     const randomsObj = randoms.map(random => ({
       random,
       nodeRef: createRef()
